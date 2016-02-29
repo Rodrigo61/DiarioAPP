@@ -1,0 +1,52 @@
+<resources>
+    <string name="app_name">Diaaru</string>
+
+    <!-- Settings -->
+    <string name="settings_file">settings_file</string>
+    <string name="settings_repeat_delay">Intervalo de tempo para consulta das atividades(minutos)</string>
+    <string name="settings_review_day">Dia da semana em que é feita a review(Domingo = 1)</string>
+    <string name="settings_sleep_hour_label">Intervalos do alarme:</string>
+    <string name="settings_sleep_hour_new_hour">Adicionar</string>
+    <string name="settings_sleep_hour_delete_hour">Excluir</string>
+    <!-- -Settings- -->
+
+
+    <!-- MyAlarm -->
+    <string name="MyAlarm_ticker_notification">O que voce está fazendo?</string>
+    <string name="MyAlarm_title_notification">O que voce está fazendo?</string>
+    <string name="MyAlarm_desc_notification">Já está na hora de atualizar seu dia!</string>
+    <!-- -MyAlarm- -->
+
+
+    <!-- Activities -->
+    <!-- MainActivity -->
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_task">Adicionar nova tarefa</string>
+    <string name="title_week_list_activity">Vizualizar tarefas</string>
+    <string name="main_activity_settings">Configurações</string>
+    <!-- -MainActivity- -->
+
+    <!-- CreateTaskActivity -->
+    <string name="task_title_text">Tarefa:</string>
+    <string name="task_category_text">Categoria:</string>
+    <string name="task_description_text">Descricao:</string>
+    <string name="task_save_button">Salvar tarefa</string>
+    <string name="task_save_toast">Tarefa salva com sucesso!</string>
+    <string name="title_activity_task_list">TaskListActivity</string>
+    <string name="title_activity_scrolling">ScrollingActivity</string>
+    <!-- -CreateTaskActivity- -->
+
+    <!-- TaskListActivity -->
+    <string name="task_list_statistic">Estatística da semana</string>
+    <string name="task_list_error_load">Não foi possível carregar as estatísticas</string>
+    <!-- -TaskListActivity- -->
+
+    <!-- UpdateTaskActivity -->
+    <string name="title_activity_update_task">UpdateTaskActivity</string>
+    <string name="update_task_update_button">Atualizar tarefa</string>
+    <string name="update_task_delete_button">DELETAR TAREFA</string>
+    <!-- -UpdateTaskActivity- -->
+
+    <!-- -Activities- -->
+
+</resources>

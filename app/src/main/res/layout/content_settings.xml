@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.rodrigo.myapplication.SettingsActivity"
+    >
+    <!--tools:showIn="@layout/activity_settings"-->
+
+    <TextView
+        android:id="@+id/repeat_delay_textView"
+        android:layout_width="500dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/settings_repeat_delay"
+        android:layout_toLeftOf="@id/settings_alarm_delay_timeText"/>
+
+    <EditText
+        android:id="@+id/settings_alarm_delay_timeText"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:inputType="time"
+        android:layout_alignParentEnd="true"
+        android:ems="10" />
+
+    <TextView
+        android:id="@+id/review_day_textView"
+        android:layout_marginTop="30dp"
+        android:layout_width="500dp"
+        android:layout_height="83dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/settings_review_day"
+        android:layout_below="@id/repeat_delay_textView"
+        android:layout_toStartOf="@id/settings_review_day_timeText"/>
+
+
+    <EditText
+        android:id="@+id/settings_review_day_timeText"
+        android:layout_marginTop="30dp"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:inputType="time"
+        android:layout_below="@id/repeat_delay_textView"
+        android:layout_alignParentEnd="true"
+        android:ems="10"/>
+
+    <TextView
+        android:id="@+id/settings_sleep_hour_label"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/review_day_textView"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/settings_sleep_hour_label"/>
+
+    <LinearLayout
+        android:id="@+id/current_hour_container"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_below="@id/settings_sleep_hour_label"
+        android:layout_height="wrap_content">
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/settings_sleep_hour_labels_layout"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/current_hour_container"
+        android:weightSum="6">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="De:"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Até:"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Dias:"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/settings_sleep_hour_labels_layout"
+        android:weightSum="6">
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:inputType="time"
+            android:ems="10"
+            android:id="@+id/settings_sleep_hour_new_hour_begin_editText"
+            android:onClick="showTimePickerDialog"/>
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:inputType="time"
+            android:ems="10"
+            android:id="@+id/settings_sleep_hour_new_hour_end_editText"
+            android:onClick="showTimePickerDialog"/>
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:inputType="time"
+            android:ems="10"
+            android:id="@+id/settings_sleep_hour_new_hour_days_editText"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="match_parent"
+            android:text="@string/settings_sleep_hour_new_hour"
+            android:onClick="newSleepHourOnClick"/>
+    </LinearLayout>
+
+</RelativeLayout>
