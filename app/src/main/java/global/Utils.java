@@ -45,4 +45,8 @@ public class Utils {
         return (int)(millis / 60000);
     }
 
+
+    public static long convertDayToMillis(int daysCount){
+        return daysCount * 24 * 60 * 60 * 1000;
+    }
 }

@@ -19,6 +19,7 @@ import java.util.Calendar;
 import database.TaskDBAccessor;
 import global.SystemSettings;
 import global.Task;
+import global.Utils;
 import taskList.TaskListActivity;
 import updateTask.UpdateTaskActivity;
 
@@ -47,16 +48,14 @@ public class WeekListActivity extends Activity {
     }
 
 
-    private long convertDayToMillis(int daysCount){
-        return daysCount * 24 * 60 * 60 * 1000;
-    }
+
 
 
     private ArrayList generateWeekItemArrayFromDB() {
 
         ArrayList<WeekListItem> weekItemArray = new ArrayList<>();
         long lastDay = setDayHourToMidnight(TaskDBAccessor.getNewestTask(getContentResolver()).getDate());
-        long currentBeginWeek = setDayHourToMidnight(TaskDBAccessor.getOlderTask(getContentResolver()).getDate());
+        long currentBeginWeek = setDayHourToMidnight(TaskDBAccessor.getOlderTask(getContentResolver()).getDate()) - Utils.convertDayToMillis(1);
         long currentEndWeek = 0;
         WeekListItem currentListItem = null;
 
@@ -92,7 +91,7 @@ public class WeekListActivity extends Activity {
         calendar.setTimeInMillis(currentBeginWeek);
 
         int daysCountWeek = DAYS_OF_WEEK - Math.abs(calendar.get(Calendar.DAY_OF_WEEK) - SystemSettings.getReviewDay(this));
-        long currentEndWeek = currentBeginWeek + convertDayToMillis(daysCountWeek);
+        long currentEndWeek = currentBeginWeek + Utils.convertDayToMillis(daysCountWeek);
 
         currentEndWeek = currentEndWeek < (lastDay - 1) ? currentEndWeek:lastDay;
 

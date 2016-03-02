@@ -17,8 +17,7 @@
         android:layout_width="500dp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/settings_repeat_delay"
-        android:layout_toLeftOf="@id/settings_alarm_delay_timeText"/>
+        android:text="@string/settings_repeat_delay" />
 
     <EditText
         android:id="@+id/settings_alarm_delay_timeText"
@@ -26,7 +25,8 @@
         android:layout_height="wrap_content"
         android:inputType="time"
         android:layout_alignParentEnd="true"
-        android:ems="10" />
+        android:ems="10"
+        android:layout_toRightOf="@id/repeat_delay_textView"/>
 
     <TextView
         android:id="@+id/review_day_textView"
@@ -36,7 +36,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/settings_review_day"
         android:layout_below="@id/repeat_delay_textView"
-        android:layout_toStartOf="@id/settings_review_day_timeText"/>
+        />
 
 
     <EditText
@@ -47,7 +47,8 @@
         android:inputType="time"
         android:layout_below="@id/repeat_delay_textView"
         android:layout_alignParentEnd="true"
-        android:ems="10"/>
+        android:ems="10"
+        android:layout_toEndOf="@id/review_day_textView"/>
 
     <TextView
         android:id="@+id/settings_sleep_hour_label"
