@@ -21,7 +21,7 @@ public class UpdateTaskActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_update_task);
+        setContentView(R.layout.content_update_task);
 
         updateActivity();
     }
