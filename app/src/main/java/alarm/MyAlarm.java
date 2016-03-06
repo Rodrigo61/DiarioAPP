@@ -103,7 +103,7 @@ public class MyAlarm extends BroadcastReceiver {
             calendar.add(Calendar.SECOND, 3);
 
             AlarmManager alarm = (AlarmManager) context.getSystemService(context.ALARM_SERVICE);
-            alarm.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), alarmDelay, alarmBroadcastIntent);
+            alarm.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis() + alarmDelay, alarmDelay, alarmBroadcastIntent);
         }
     }
 

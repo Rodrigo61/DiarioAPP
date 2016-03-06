@@ -52,6 +52,7 @@ public class SettingsActivity extends FragmentActivity {
 
     private void setSleepHourSetting(){
         LinearLayout container = (LinearLayout) findViewById(R.id.current_hour_container);
+
         ArrayList<LinearLayout> hourViewList = gethourViewListFromDatabase();
 
         container.setOrientation(LinearLayout.VERTICAL);
@@ -212,7 +213,7 @@ public class SettingsActivity extends FragmentActivity {
 
 
     private String convertMillisToTimeText(long millis){
-        return new SimpleDateFormat("mm:ss").format(new Date(millis));
+        return new SimpleDateFormat("HH:mm").format(new Date(Utils.convertHourToMillis(3) + millis));
     }
 
 
