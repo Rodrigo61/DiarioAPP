@@ -91,18 +91,14 @@ public class MyAlarm extends BroadcastReceiver {
 
     public static void createAlarmIntent(Context context){
         Log.i("MyAlarm", "createAlarmIntent");
-        Intent alarmIntent = null;
-        PendingIntent alarmBroadcastIntent = null;
-        Calendar calendar = Calendar.getInstance();
-        long alarmDelay = 0;
-
         SystemSettings.getAlarmDelay(context);
-        alarmDelay = SystemSettings.getAlarmDelay(context);
+        long alarmDelay = SystemSettings.getAlarmDelay(context);
 
         if(!alarmRunning(context) && alarmDelay != 0){
-            alarmIntent = new Intent(STARTED_ALARM);
-            alarmBroadcastIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, 0);
+            Intent alarmIntent = new Intent(STARTED_ALARM);
+            PendingIntent alarmBroadcastIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, 0);
 
+            Calendar calendar = Calendar.getInstance();
             calendar.setTimeInMillis(System.currentTimeMillis());
             calendar.add(Calendar.SECOND, 3);
 

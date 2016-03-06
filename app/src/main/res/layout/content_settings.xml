@@ -70,69 +70,45 @@
     </LinearLayout>
 
 
+
     <LinearLayout
-        android:id="@+id/settings_sleep_hour_labels_layout"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_below="@id/current_hour_container"
         android:weightSum="6">
 
         <TextView
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="De:"/>
+            android:layout_height="wrap_content"
+            android:inputType="time"
+            android:ems="10"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="De"
+            android:id="@+id/settings_sleep_hour_new_hour_begin_TextView"
+            android:onClick="showTimePickerDialog"/>
 
         <TextView
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Até:"/>
+            android:layout_height="wrap_content"
+            android:inputType="time"
+            android:ems="10"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Até"
+            android:id="@+id/settings_sleep_hour_new_hour_end_TextView"
+            android:onClick="showTimePickerDialog"/>
 
         <TextView
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Dias:"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/settings_sleep_hour_labels_layout"
-        android:weightSum="6">
-
-        <EditText
-            android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:inputType="time"
+            android:text="Dias"
             android:ems="10"
-            android:id="@+id/settings_sleep_hour_new_hour_begin_editText"
-            android:onClick="showTimePickerDialog"/>
-
-        <EditText
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:inputType="time"
-            android:ems="10"
-            android:id="@+id/settings_sleep_hour_new_hour_end_editText"
-            android:onClick="showTimePickerDialog"/>
-
-        <EditText
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:inputType="time"
-            android:ems="10"
-            android:id="@+id/settings_sleep_hour_new_hour_days_editText"/>
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/settings_sleep_hour_new_hour_days_TextView"/>
 
         <Button
             android:layout_width="0dp"

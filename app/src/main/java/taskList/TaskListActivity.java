@@ -40,6 +40,7 @@ public class TaskListActivity extends Activity
 
     HashMap<String, Integer> categorySumHashMap = null;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,9 +63,8 @@ public class TaskListActivity extends Activity
 
         List<String> listDataHeader = new ArrayList<>();
         HashMap<String, List<ExpandableListAdapter.ExpandableListItem>> listDataChild = new HashMap<>();
-        List<ExpandableListAdapter.ExpandableListItem> currentGroup = new ArrayList<>();
 
-        extractFromCursorHeadersAndChildren(cursor, listDataHeader, listDataChild, currentGroup);
+        extractFromCursorHeadersAndChildren(cursor, listDataHeader, listDataChild);
         setExpandableListViewAdapter(listDataHeader, listDataChild);
 
     }
@@ -77,32 +77,34 @@ public class TaskListActivity extends Activity
         ExpandableListAdapter listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
         expListView.setAdapter(listAdapter);
 
-        setOnChildClickListener(expListView, listDataChild);
+        setOnChildClickListener(expListView, listDataChild, listDataHeader);
     }
 
 
-    private void extractFromCursorHeadersAndChildren(Cursor cursor, List<String> listDataHeader,
-                                                   HashMap<String, List<ExpandableListAdapter.ExpandableListItem>> listDataChild,
-                                                   List<ExpandableListAdapter.ExpandableListItem> currentGroup){
+    private void extractFromCursorHeadersAndChildren(Cursor weekTaskCursor, List<String> listDataHeader,
+                                                   HashMap<String, List<ExpandableListAdapter.ExpandableListItem>> listDataChild){
 
-        long currentDay = 0;
-        Task currentTask = null;
+        long lastTaskDay = 0;
+        List<ExpandableListAdapter.ExpandableListItem> currentGroup = new ArrayList<>();
 
-        cursor.moveToFirst();
-        while(!cursor.isAfterLast()) {
-            currentTask = getCurrentTask(cursor);
+        weekTaskCursor.moveToFirst();
+        while(!weekTaskCursor.isAfterLast()) {
 
-            if (currentDay != 0 && !sameDayOfWeek(currentDay, currentTask.getDate())) {
-                addGroupToExpandableList(currentGroup, currentDay, listDataChild, listDataHeader);
+            Task currentTask = getCurrentTask(weekTaskCursor);
+
+            if (lastTaskDay != 0 && !sameDayOfWeek(lastTaskDay, currentTask.getDate())) {
+                addGroupToExpandableList(currentGroup, lastTaskDay, listDataChild, listDataHeader);
                 currentGroup = new ArrayList<>();
             }
 
             currentGroup.add(new ExpandableListAdapter.ExpandableListItem(currentTask.getTitle(), currentTask.getID()));
-            currentDay = currentTask.getDate();
-            cursor.moveToNext();
+
+            lastTaskDay = currentTask.getDate();
+
+            weekTaskCursor.moveToNext();
         }
 
-        addGroupToExpandableList(currentGroup, currentDay, listDataChild, listDataHeader);
+        addGroupToExpandableList(currentGroup, lastTaskDay, listDataChild, listDataHeader);
 
     }
 
@@ -195,7 +197,8 @@ public class TaskListActivity extends Activity
 
 
     private void setOnChildClickListener(ExpandableListView expListView,
-                                         final HashMap<String, List<ExpandableListAdapter.ExpandableListItem>> listDataChild) {
+                                         final HashMap<String, List<ExpandableListAdapter.ExpandableListItem>> listDataChild,
+                                         final List<String> listDataHeader) {
 
 
         expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
@@ -205,8 +208,9 @@ public class TaskListActivity extends Activity
                                         int groupPosition, int childPosition, long id) {
 
                 Intent updateTaskIntent = new Intent(getBaseContext(), UpdateTaskActivity.class);
+
                 ExpandableListAdapter.ExpandableListItem currentItem =
-                        listDataChild.get(listDataChild.keySet().toArray()[groupPosition]).get(childPosition);
+                        listDataChild.get(listDataHeader.get(groupPosition)).get(childPosition);
 
                 Task selectedTask = TaskDBAccessor.selectByID(getContentResolver(), currentItem.getID());
 
@@ -215,7 +219,6 @@ public class TaskListActivity extends Activity
                 updateTaskIntent.putExtra("category", selectedTask.getCategory().toString());
                 updateTaskIntent.putExtra("_ID", selectedTask.getID());
 
-                Log.i("TaskListActivity", selectedTask.getID() + "");
                 startActivity(updateTaskIntent);
 
                 return true;

@@ -16,6 +16,7 @@ import android.view.ViewManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import java.text.SimpleDateFormat;
@@ -130,6 +131,7 @@ public class SettingsActivity extends FragmentActivity {
         return editText;
     }
 
+
     private void setReviewDaySettings() {
         EditText reviewDayText = (EditText) findViewById(R.id.settings_review_day_timeText);
 
@@ -159,6 +161,7 @@ public class SettingsActivity extends FragmentActivity {
         System.out.println("Save Settings done");
     }
 
+
     private int getReviewDaySettings() {
         EditText reviewDayText = (EditText) findViewById(R.id.settings_review_day_timeText);
 
@@ -176,9 +179,9 @@ public class SettingsActivity extends FragmentActivity {
 
 
     public void newSleepHourOnClick(View view){
-        EditText timeBeginEditText = (EditText) findViewById(R.id.settings_sleep_hour_new_hour_begin_editText);
-        EditText timeEndEditText = (EditText) findViewById(R.id.settings_sleep_hour_new_hour_end_editText);
-        EditText daysEditText = (EditText) findViewById(R.id.settings_sleep_hour_new_hour_days_editText);
+        TextView timeBeginEditText = (TextView) findViewById(R.id.settings_sleep_hour_new_hour_begin_TextView);
+        TextView timeEndEditText = (TextView) findViewById(R.id.settings_sleep_hour_new_hour_end_TextView);
+        TextView daysEditText = (TextView) findViewById(R.id.settings_sleep_hour_new_hour_days_TextView);
 
         long timeRangeBegin = convertTimeTextToMillis(timeBeginEditText.getText().toString());
         long timeRangeEnd   = convertTimeTextToMillis(timeEndEditText.getText().toString());
@@ -196,6 +199,7 @@ public class SettingsActivity extends FragmentActivity {
 
         setSleepHourSetting();
     }
+
 
     private long convertTimeTextToMillis(String timeText) {
         StringTokenizer stringTokenizer = new StringTokenizer(timeText, ":");
@@ -218,7 +222,7 @@ public class SettingsActivity extends FragmentActivity {
 
 
     public void showTimePickerDialog(View v) {
-        DialogFragment newFragment = new TimePickerFragment((EditText)v);
+        DialogFragment newFragment = new TimePickerFragment((TextView)v);
         newFragment.show(getSupportFragmentManager(), "timePicker");
     }
 
@@ -226,26 +230,24 @@ public class SettingsActivity extends FragmentActivity {
     public static class TimePickerFragment extends DialogFragment
             implements TimePickerDialog.OnTimeSetListener {
 
-        private EditText editText;
+        private TextView textView;
 
-        public TimePickerFragment(EditText editText){
-            this.editText = (EditText) editText;
+        public TimePickerFragment(TextView textView){
+            this.textView = (TextView) textView;
         }
 
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
-            // Use the current time as the default values for the picker
             final Calendar c = Calendar.getInstance();
             int hour = c.get(Calendar.HOUR_OF_DAY);
             int minute = c.get(Calendar.MINUTE);
 
-            // Create a new instance of TimePickerDialog and return it
             return new TimePickerDialog(getActivity(), this, hour, minute,
                     DateFormat.is24HourFormat(getActivity()));
         }
 
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            editText.setText(hourOfDay+":"+minute);
+            textView.setText(hourOfDay+":"+minute);
         }
     }
 }
