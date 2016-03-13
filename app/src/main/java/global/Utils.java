@@ -2,7 +2,11 @@ package global;
 
 import android.widget.EditText;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.StringTokenizer;
 
 /**
  * Created by rodrigo on 23/02/16.
@@ -48,5 +52,20 @@ public class Utils {
 
     public static long convertDayToMillis(int daysCount){
         return daysCount * 24 * 60 * 60 * 1000;
+    }
+
+
+    public static long convertTimeTextToMillis(String timeText) {
+        StringTokenizer stringTokenizer = new StringTokenizer(timeText, ":");
+
+        long time = Utils.convertHourToMillis(Integer.parseInt(stringTokenizer.nextToken()));
+        time += Utils.convertMinutesToMillis(Integer.parseInt(stringTokenizer.nextToken()));
+
+        return time;
+    }
+
+
+    public static String convertMillisToTimeText(long millis){
+        return new SimpleDateFormat("HH:mm").format(new Date(Utils.convertHourToMillis(3) + millis));
     }
 }

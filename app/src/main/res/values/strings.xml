@@ -32,6 +32,7 @@
     <string name="task_description_text">Descricao:</string>
     <string name="task_save_button">Salvar tarefa</string>
     <string name="task_save_toast">Tarefa salva com sucesso!</string>
+    <string name="task_task_date">Tarefa referente as:</string>
     <string name="title_activity_task_list">TaskListActivity</string>
     <string name="title_activity_scrolling">ScrollingActivity</string>
     <!-- -CreateTaskActivity- -->

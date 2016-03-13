@@ -4,11 +4,10 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.util.Log;
 
 import com.example.rodrigo.myapplication.R;
 
-import java.util.Calendar;
+import java.util.Stack;
 
 import database.DatabaseContract;
 import database.SleepHourDBAccessor;
@@ -18,9 +17,26 @@ import database.SleepHourDBAccessor;
  */
 public class SystemSettings {
 
+    private static Stack<Long> taskBeginStack = new Stack();
+
+
+    public static long getNextTaskBegin(){
+        if(taskBeginStack.empty()) {
+           return 0;
+        }
+
+        return taskBeginStack.pop();
+    }
+
+    public static void pushTaskBegin(long taskBegin){
+        taskBeginStack.push(taskBegin);
+    }
+
     public static long getAlarmDelay(Context context){
-        SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.settings_file), Context.MODE_PRIVATE);
-        return sharedPref.getLong(context.getString(R.string.settings_repeat_delay), 0);
+        return 10000;
+
+        /*SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.settings_file), Context.MODE_PRIVATE);
+        return sharedPref.getLong(context.getString(R.string.settings_repeat_delay), 0);*/
     }
 
 

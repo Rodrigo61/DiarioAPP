@@ -9,7 +9,7 @@ import android.provider.BaseColumns;
 public final class DatabaseContract {
     public static final int DATABASE_VERSION = 2;
     /*public static final String DATABASE_NAME = "database";*/
-    public static final String DATABASE_NAME = "/mnt/sdcard/database.db";
+    public static final String DATABASE_NAME = "/mnt/sdcard/database3.db";
     public static final String AUTHORITY = "com.example.rodrigo.myapplication.provider";
     public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY);
 

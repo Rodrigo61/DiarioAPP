@@ -4,7 +4,6 @@ import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -18,6 +17,7 @@ import com.example.rodrigo.myapplication.R;
 
 import global.SystemSettings;
 import createTask.CreateTaskActivity;
+import global.Utils;
 
 import java.util.Calendar;
 
@@ -35,10 +35,17 @@ public class MyAlarm extends BroadcastReceiver {
 
 
     private void sendNotificationToNewTask(Context context) {
-        Intent displayMessageIntent = new Intent(context, CreateTaskActivity.class);
 
         //TODO: é interessante nao sobrecarregar o broadcastReceiver delegando a uma Service para essa tarefa
         if(!SystemSettings.isSleepHour(context.getContentResolver())) {
+
+            Intent displayMessageIntent = new Intent(context, CreateTaskActivity.class);
+
+            int taskBegin = (int)Utils.getCurrentDayTime();
+            Log.i("MyAlarm", "taskBegin = "+taskBegin);
+            displayMessageIntent.putExtra("taskBegin", taskBegin);
+            SystemSettings.pushTaskBegin(taskBegin);
+
             sendNotification(context, displayMessageIntent, R.drawable.ic_class_black_48dp);
             playAlertRingtone(context);
         }

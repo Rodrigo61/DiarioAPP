@@ -2,10 +2,12 @@ package createTask;
 
 import android.app.Activity;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rodrigo.myapplication.R;
@@ -13,8 +15,10 @@ import com.example.rodrigo.myapplication.R;
 import java.util.Date;
 
 import global.Category;
+import global.SystemSettings;
 import global.Task;
 import database.DatabaseContract;
+import global.Utils;
 
 public class CreateTaskActivity extends Activity {
 
@@ -23,6 +27,40 @@ public class CreateTaskActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_task);
+
+        popTaskBeginFromStack();
+        setDateTask();
+    }
+
+
+    private void popTaskBeginFromStack() {
+        long taskBegin = getTaskBeginFromExtra();
+        long taskBeginFromStack = SystemSettings.getNextTaskBegin();
+
+        if(taskBegin != taskBeginFromStack){
+            SystemSettings.pushTaskBegin(taskBeginFromStack);
+        }
+    }
+
+
+    private void setDateTask() {
+        TextView textView = (TextView) findViewById(R.id.createTask_date_task);
+        long taskBegin = getTaskBeginFromExtra();
+
+        if(taskBegin != 0){
+
+            long taskEnd = getTaskBeginFromExtra() + SystemSettings.getAlarmDelay(this);
+
+            String taskBeginStr = Utils.convertMillisToTimeText(taskBegin);
+            String taskEndStr = Utils.convertMillisToTimeText(taskEnd);;
+
+            textView.setText(getString(R.string.task_task_date) + taskBeginStr + "/" + taskEndStr);
+        }
+    }
+
+
+    private long getTaskBeginFromExtra(){
+        return (long)getIntent().getIntExtra("taskBegin", 0);
     }
 
 
@@ -76,4 +114,17 @@ public class CreateTaskActivity extends Activity {
     }
 
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        int nextTaskBegin = (int)SystemSettings.getNextTaskBegin();
+
+        if(nextTaskBegin != 0){
+            Intent nextTaskIntent = new Intent(this, CreateTaskActivity.class);
+            nextTaskIntent.putExtra("taskBegin", SystemSettings.getNextTaskBegin());
+
+            startActivityForResult(nextTaskIntent, 0);
+        }
+    }
 }

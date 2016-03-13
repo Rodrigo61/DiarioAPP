@@ -72,8 +72,8 @@ public class SettingsActivity extends FragmentActivity {
 
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
-            String timeRangeBegin = convertMillisToTimeText(cursor.getLong(cursor.getColumnIndex(DatabaseContract.SleepHour.COLUMN_NAME_TIME_RANGE_BEGIN)));
-            String timeRangeEnd = convertMillisToTimeText(cursor.getLong(cursor.getColumnIndex(DatabaseContract.SleepHour.COLUMN_NAME_TIME_RANGE_END)));
+            String timeRangeBegin = Utils.convertMillisToTimeText(cursor.getLong(cursor.getColumnIndex(DatabaseContract.SleepHour.COLUMN_NAME_TIME_RANGE_BEGIN)));
+            String timeRangeEnd = Utils.convertMillisToTimeText(cursor.getLong(cursor.getColumnIndex(DatabaseContract.SleepHour.COLUMN_NAME_TIME_RANGE_END)));
             String days = cursor.getString(cursor.getColumnIndex(DatabaseContract.SleepHour.COLUMN_NAME_DAYS));
             int _ID = cursor.getInt(cursor.getColumnIndex(DatabaseContract.SleepHour._ID));
 
@@ -184,8 +184,8 @@ public class SettingsActivity extends FragmentActivity {
         TextView timeEndEditText = (TextView) findViewById(R.id.settings_sleep_hour_new_hour_end_TextView);
         TextView daysEditText = (TextView) findViewById(R.id.settings_sleep_hour_new_hour_days_TextView);
 
-        long timeRangeBegin = convertTimeTextToMillis(timeBeginEditText.getText().toString());
-        long timeRangeEnd   = convertTimeTextToMillis(timeEndEditText.getText().toString());
+        long timeRangeBegin = Utils.convertTimeTextToMillis(timeBeginEditText.getText().toString());
+        long timeRangeEnd   = Utils.convertTimeTextToMillis(timeEndEditText.getText().toString());
         String days = daysEditText.getText().toString();
 
         SleepHourDBAccessor.insert(getContentResolver(), timeRangeBegin, timeRangeEnd, days);
@@ -199,21 +199,6 @@ public class SettingsActivity extends FragmentActivity {
         container.removeAllViews();
 
         setSleepHourSetting();
-    }
-
-
-    private long convertTimeTextToMillis(String timeText) {
-        StringTokenizer stringTokenizer = new StringTokenizer(timeText, ":");
-
-        long time = Utils.convertHourToMillis(Integer.parseInt(stringTokenizer.nextToken()));
-        time += Utils.convertMinutesToMillis(Integer.parseInt(stringTokenizer.nextToken()));
-
-        return time;
-    }
-
-
-    private String convertMillisToTimeText(long millis){
-        return new SimpleDateFormat("HH:mm").format(new Date(Utils.convertHourToMillis(3) + millis));
     }
 
 
